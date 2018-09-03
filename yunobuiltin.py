@@ -747,3 +747,68 @@ def juxt(*funcs):
 
 merge_keep_left = partial(merge_with, lambda x, y: x)
 merge_keep_right = partial(merge_with, lambda x, y: y)
+
+
+def rest(x):
+    """ Conceptually returns (x[1:] or None), but do the right thing with iterable and non-iterable objects
+
+    >>> rest([])
+    >>> rest([1,2,3])
+    [2, 3]
+    >>> list(rest(range(5)))
+    [1, 2, 3, 4]
+    >>> list(rest(iter([1, 2,3])))
+    [2, 3]
+    >>> rest(object())
+
+    """
+    # handle lists first for a fast path
+    try:
+        # handle empty lists
+        if x:
+            return x[1:]
+        else:
+            return None
+    except TypeError:
+        # if we're not a list, check if we're iterable
+        try:
+            if is_iterable(x):
+                # coerce so we can deal with iterable things like sets, ranges, generators
+                tmp = iter(x)
+                tmp.next()
+                return tmp
+            else:
+                return None
+        except StopIteration:
+            return None
+
+
+def iterate(f, x):
+    "Returns a generator for x, f(x), f(f(x)), f(f(f(x))), etc"
+    while True:
+        yield x
+        x = f(x)
+
+
+def converge(f, xs):
+    """f(x[n], x[n+1]) until result is True, then return x[n]
+       f should handle x[n] being None
+       xs should not be None
+
+       Ex: approximate round(math.sqrt(10), 5)
+
+       # helper to calculate a guess of g as root for x
+       divavg = lambda x, g: (((float(x) / float(g)) + float(g)) / 2.0
+       initial_guess = 2
+       converge(lambda x, y: (round(float(x), 5) == round(float(y), 5)) if x is not None else y,
+               iterate(partial(divavg, 10), initial_guess)
+
+    """
+    # TODO: fix better_reduce to handle nil colls so we can let xs safely be None
+    def g(old, new):
+        r = f(old, new)
+        if r is True:
+            return reduced(old)
+        else:
+            return new
+    return better_reduce(g, None, xs)
