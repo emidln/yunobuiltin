@@ -2,8 +2,9 @@
 yunobuiltin
 ===========
 
-Some functions to make life in a Python/JSON world easier. This library was developed
-while building Curiosity.com by Beacon Solutions, Inc. We use it everywhere.
+Some functions to make life in a Python/JSON world easier.  This is a FORK of a 
+library that was developed at Curiosity.com and open-sourced by Beacon Solutions, Inc.
+I use it everywhere
 
 Download
 ========
@@ -12,7 +13,7 @@ We're on PyPI as `yunobuiltin`. The latest version for your requirements file is
 
 .. code:: requirements.txt
 
-    yunobuiltin==1.0.0-alpha1
+    #yunobuiltin==1.0.0-alpha1
 
 Introduction
 ============
@@ -55,7 +56,8 @@ Keep the world a happier place and don't break API compatibility.
 License (MIT/Expat)
 ====================
 
-Copyright |copy| 2014, 2015 Beacon Solutions, Inc. 
+Copyright |copy| 2014-2018 Beacon Solutions, Inc. 
+Copyright |copy| 2018 Brandon Joseph Adams <emidln@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
