@@ -31,11 +31,19 @@ You could use ``get_in(x, ['foo', 'bar', 'spam'])``. The ``['foo', 'bar', 'spam'
 
 .. code:: python
 
-    get_in(x, ['foo', 'bar', 'spam'])
+    return get_in(x, ['foo', 'bar', 'spam'], 'default')
 
     # vs
 
-    x.get('foo', {}).get('bar', {}).get('spam')
+    return x.get('foo', {}).get('bar', {}).get('spam', 'default')
+
+    # or
+
+    try:
+        return x['foo']['bar']['spam']
+    except (TypeError, KeyError, IndexError), e:
+        return 'default'
+
 
 This is especially apparent when you need to programatically construct paths through nested structures, as constructing a list or iterable is very easy.
 
